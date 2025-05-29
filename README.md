@@ -6,3 +6,5 @@ https://www.youtube.com/watch?v=nQdyiK7-VlQ&ab_channel=SamMeech-Ward
 https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/restrict-access-to-load-balancer.html
 https://medium.com/@prabhupj/adding-aws-cloud-front-in-front-of-load-balancer-and-add-a-records-to-route53-using-terraform-1fa9b3823416
 https://dev.to/aws-builders/create-acm-certificate-with-dns-validation-using-terraform-2adf
+https://medium.com/@renrihui8415/9-aws-cloud-architecture-building-using-terraform-07-cloudfront-origin-group-tf-abfbe7f8ae2
+
