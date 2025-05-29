@@ -1,0 +1,50 @@
+There are two ways to validate your certificate using terraform
+
+1. To validate only a single record 
+      resource "aws_route53_record" "cert_validation" {
+        allow_overwrite = true
+        name            = tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_name
+        records         = [ tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_value ]
+        type            = tolist(aws_acm_certificate.myapp.domain_validation_options)[0].resource_record_type
+        zone_id  = data.aws_route53_zone.public.id
+        ttl      = 60
+        provider = aws.account_route53
+      }
+
+2. To validate multiple records using for_each
+      resource "aws_route53_record" "example" {
+        for_each = {
+          for dvo in aws_acm_certificate.example.domain_validation_options : dvo.domain_name => {
+            name   = dvo.resource_record_name
+            record = dvo.resource_record_value
+            type   = dvo.resource_record_type
+          }
+        }
+      
+        allow_overwrite = true
+        name            = each.value.name
+        records         = [each.value.record]
+        ttl             = 60
+        type            = each.value.type
+        zone_id         = aws_route53_zone.example.zone_id
+      }
+
+
+
+What it does is it will iterate over all the domain validation options and create seperate route53 records for each domain.
+It is good to use this to make it future proof. 
+
+
+-----------------------
+
+domain_validation_options is an attribute automatically populated by AWS ACM when you request a certificate using the aws_acm_certificate resource in Terraform
+
+The information includes:
+
+- domain_name: The domain to be validated.
+
+- resource_record_name: The DNS record name ACM expects you to create.
+
+- resource_record_type: The type of DNS record (usually CNAME).
+
+- resource_record_value: The value ACM expects for validation
