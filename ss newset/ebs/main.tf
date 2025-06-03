@@ -51,3 +51,7 @@ resource "aws_volume_attachment" "ebs_att" {
   volume_id   = aws_ebs_volume.test-ebs.id
   instance_id = aws_instance.terraform_instance.id
 }
+
+resource "aws_ebs_snapshot" "test_snapshot" {
+  volume_id = aws_ebs_volume.test-ebs.id
+}
