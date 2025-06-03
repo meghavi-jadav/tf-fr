@@ -1,3 +1,6 @@
+# Create an IAM role for EC2 with S3 read access.
+
+
 terraform {
   required_providers {
     aws = {
