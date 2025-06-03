@@ -1,4 +1,5 @@
-# Attach a new EBS volume to an EC2 instance. 
+# Attach a new EBS volume to an EC2 instance. Take a snapshot of the volume.
+
 
 terraform {
     required_providers {
